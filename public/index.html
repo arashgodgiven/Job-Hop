@@ -1,0 +1,194 @@
+<!-- public/index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Manager</title>
+    <link rel="stylesheet" href="styles/index.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+</head>
+<body>
+  <!-- Navigation bar -->
+    <ul class="navbar">
+      <div class="left_side_nav">
+        <li class="left_side"><a class="appLogo" href="#home">JH</a></li>
+        <li class="left_side"><a class="appName" href="#home">JobHop</a></li>
+      </div>
+      <div class="right_side_nav">
+        <div class="navigation_buttons_div">
+          <div class="myContacts_nav_div">
+            <span class="material-symbols-outlined">contacts_product</span>
+            <li class="mid_side"><a class="myContacts" href="#myContact">Contacts</a></li>
+          </div>
+          <div class="myJobs_nav_div">
+            <span class="material-symbols-outlined">work</span>
+            <li class="mid_side"><a class="myJobs" href="#myJobs">My Jobs</a></li>
+          </div>
+        </div>
+        <div class="myAccount_div" onclick="toggleWrap()">
+          <div class="initials-circle">
+            <li style="display:none;">AK</li>
+          </div>
+          <li class="myAccount_li"><a href="signIn.html" id="myAccountLink">Account</a></li>
+        </div>
+      </div>
+    </ul>
+
+    <div class="wrap" id="wrapSection">
+      <div class="fleft">
+        <div class="top-section">
+          <input type="text" class="search-bar" placeholder="Search...">
+          <div class="contactsView-addContactButton">
+            <span class="material-symbols-outlined" onclick="toggleAddNewContactView()">add</span>
+          </div>
+          <div class="contactsView-threeDotMenuButton">
+            <span class="material-symbols-outlined">more_vert</span>
+          </div>
+        </div>
+
+        <div class="contacts-list-view-div" id="contactsListView">
+          <div class="scrollable-section">
+            <!-- Content here will be scrollable -->
+            <div class="contact-card" onclick="toggleContactDetailPageView(this)">
+              <li class="contact-leftSide"><img src="thumbnails/channel-1.jpeg" alt="contact-image"></li>
+              <div class="contact-rightSide">
+                <div class="contact-firstRow">
+                  <li class="firstRow"><a class="contact-name">John Doe</a></li>
+                  <div class="bullet"></div>
+                  <li class="firstRow"><a class="contact-workPlace">Head of product @ Appara</a></li>
+                </div>
+                <div class="contact-seccondRow">
+                  <div class="contact-email">john.doe@example.com</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="contact-card" onclick="toggleContactDetailPageView(this)">
+              <li class="contact-leftSide"><img src="thumbnails/channel-3.jpeg" alt="contact-image"></li>
+              <div class="contact-rightSide">
+                <div class="contact-firstRow">
+                  <li class="firstRow"><a class="contact-name">jane mark</a></li>
+                  <div class="bullet"></div>
+                  <li class="firstRow"><a class="contact-workPlace">Head of this @ Appara</a></li>
+                </div>
+                <div class="contact-seccondRow">
+                  <div class="contact-email">jane.mark@example.com</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="contact-card" onclick="toggleContactDetailPageView(this)">
+              <li class="contact-leftSide"><img src="thumbnails/my-channel.jpeg" alt="contact-image"></li>
+              <div class="contact-rightSide">
+                <div class="contact-firstRow">
+                  <li class="firstRow"><a class="contact-name">Michael Scott</a></li>
+                  <div class="bullet"></div>
+                  <li class="firstRow"><a class="contact-workPlace">Head of that @ Appara</a></li>
+                </div>
+                <div class="contact-seccondRow">
+                  <div class="contact-email">michael.scott@example.com</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="add-new-contact-view-div" id="contactAddMethodView" style="display:none;">
+          <div class="import-button-div">
+            <label>Import Contact from LinkedIn</label>
+            <span class="material-symbols-outlined">system_update_alt</span>
+          </div>
+          <div class="create-new-contact-button-div" onclick="toggleForm()">
+            <label>Create New Contact</label>
+            <span class="material-symbols-outlined">person_add</span>
+          </div>
+        </div>
+      </div>
+      <div class="fmiddle">
+
+      </div>
+      <div class="fright">
+        <!-- View to add new contact -->
+        <div class="add-contact-view" id="formSection" style="display:none;">
+          <div class="backButton-div">
+            <span class="material-symbols-outlined" type="button" onclick="toggleAddNewContactView()">arrow_back_ios</span>
+          </div>
+          <div class="center-div">
+            <form action="/contacts" method="POST">
+              <div class="image-div">
+                <label for="image" class="file-input-label">
+                  <img src="thumbnails/placeholder.jpeg" alt="placeholder.jpeg">
+                </label>
+                <input type="file" id="image" name="image" style="display: none;">
+              </div>
+              <div class="firstName-lastName-input-div">
+                <input type="text" id="firstName" name="firstName" placeholder="First Name" required>
+                <input type="text" id="lastName" name="lastName" placeholder="Last Name" required>
+              </div>
+              <div class="position-company-input-div">
+                <input type="text" id="position" name="position"  placeholder="Position (optional)">
+                <input type="text" id="company" name="company"  placeholder="Company (optional)">
+              </div>
+              <div class="email-input-div">
+                <input type="email" id="email" name="email" placeholder="Email Address" required>
+              </div>
+
+              <div class="links-div">
+                <div class="links-label-div">
+                  <label>Portfolios:</label>
+                </div>
+                <div class="link-and-button" >
+                  <div class="link-inputs-div" id="linksInputContainer">
+                    <div class="first-link">
+                      <input type="url" class="website" name="website[]" placeholder="Add a Link" required>
+                      <div class="remove-links-div">
+                        <span class="material-symbols-outlined" onclick="removeLink(this)">remove</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="add-more-links-div">
+                    <span class="material-symbols-outlined" type="button" onclick="addMoreLinks()">add</span>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="addContactButton-div">
+            <button type="button" onclick="addContact()">Submit</button>
+          </div>
+        </div>
+
+        <!-- Contact page View -->
+        <div class="contact-detail-page-view" id="contactDetailViewSection" style="display:none;">
+            <div class="backButton-div">
+                <span class="material-symbols-outlined" type="button" onclick="removeContactDetailPageView()">arrow_back_ios</span>
+            </div>
+            <div class="contact-page-center-div">
+                <div class="contact-page-block-div">
+                    <div class="contact-page-img-view">
+                        <img class="contact-image" src="" alt="contact-image">
+                    </div>
+                    <div class="contact-page-name-position-view">
+                        <li class="contact-page-li"><a class="contact-name">John Doe</a></li>
+                        <li class="contact-page-li"><a class="contact-workPlace">Head of product @ Appara</a></li>
+                    </div>
+                    <div class="">
+                        <li class="contact-page-li"><a class="contact-email">john.doe@example.com</a></li>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="scripts/index.js"></script>
+</body>
+</html>

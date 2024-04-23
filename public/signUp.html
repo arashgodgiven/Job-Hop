@@ -1,0 +1,71 @@
+<!-- public/signUp.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Manager</title>
+    <link rel="stylesheet" href="styles/signUp.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@200..800&family=Fira+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+</head>
+<body>
+  <!-- Navigation bar -->
+    <ul class="navbar">
+      <div class="left_side_nav">
+        <li class="left_side"><a class="appLogo" href="#home">JH</a></li>
+        <li class="left_side"><a class="appName" href="#home">JobHop</a></li>
+      </div>
+    </ul>
+
+    <div class="wrap" id="wrapSection">
+      <div class="signUp-centre-view">
+        <div class="signUp-banner-div">
+          <h1>Hop on and link up!</h1>
+          <h3>Sign up and sync your linked-in account</h3>
+        </div>
+        <form action="/register" method="POST">
+          <div class="signUp-email-input-div">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="signUp-password-input-div">
+            <a href="#" class="show-password-link" onclick="togglePasswordVisibility(this, 'password')">show</a>
+            <label for="input">Password (6+ characters)</label>
+            <input type="password" id="password" name="password" required>
+          </div>
+          <div class="password-confirmation-input-div">
+            <a href="#" class="show-password-confirmation-link" onclick="togglePasswordVisibility(this, 'confirm-password')">show</a>
+            <label for="input">Confirm Password</label>
+            <input type="password" id="confirm-password" name="confirm-password" required>
+          </div>
+        </form>
+        <div class="signUp-button-div">
+          <button type="button" onclick="signUpAuth()">Sign Up</button>
+        </div>
+        <div class="existing-user-div">
+          <div class="line-or-line-div">
+            <hr class="horizontal-line">
+            <h3>or</h3>
+            <hr class="horizontal-line">
+          </div>
+          <div class="sign-in-div">
+            <h2>Already on JobHop?</h2>
+            <a href="signIn.html" class="signIn-link">Sign in</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="scripts/signUp.js"></script>
+</body>
+</html>

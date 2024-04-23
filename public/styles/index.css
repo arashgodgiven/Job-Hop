@@ -1,0 +1,634 @@
+/* index.css */
+body {
+  background-color: #f4f2ee;
+  list-style-type: none;
+  margin: 0px;
+  font-family: Arial, sans-serif;
+}
+
+.material-symbols-outlined {
+  color: #4682A9;
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 100,
+  'opsz' 24
+}
+.material-symbols-outlined:hover {
+  color: #3a6c8d;
+}
+.material-symbols-outlined:active {
+  color: #315a76;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  color: white;
+  margin: 0px;
+  padding: 0px 20px;
+  border-bottom: 1px solid #e8e8e8;
+  font-family: Arial, sans-serif;
+  list-style-type: none;
+  text-decoration: none;
+}
+
+/* Left Side Nav ------------------------------------------------------------ */
+.navbar .appLogo,
+.navbar .appName {
+  color: #4682A9;
+  font-family: "Fira Sans Condensed";
+  font-weight: bold;
+}
+
+.left_side_nav,
+.right_side_nav,
+.navigation_buttons_div {
+  display: flex;
+  align-items: center;
+}
+
+.left_side_nav li,
+.right_side_nav li {
+  margin-right: 20px;
+}
+
+.left_side_nav .appName {
+  font-size: 24px;
+  text-decoration: none;
+  color: #4682A9;
+}
+
+.left_side_nav .appLogo {
+  font-size: 35px;
+  text-decoration: none;
+  color: #4682A9;
+  margin-left: 3px;
+}
+
+/* Navigation Buttons ------------------------------------------------------- */
+.navigation_buttons_div {
+  margin-right: 20px;
+}
+
+.navigation_buttons_div li a {
+  font-family: "Fira Sans Condensed";
+  font-size: 14px;
+  text-decoration: none;
+  color: #4682A9;
+}
+
+.myContacts_nav_div,
+.myJobs_nav_div {
+  margin-right: 5px;
+  margin-left: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 7.5px;
+  padding-bottom: 6.5px;
+  border-bottom: 2px solid white;
+}
+
+.myContacts_nav_div span,
+.myJobs_nav_div span {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 150,
+    'GRAD' 100,
+    'opsz' 24
+}
+
+.myContacts_nav_div:hover a {
+  cursor: pointer;
+  color: #3a6c8d;
+  /* color: #2f75d0; */
+}
+.myContacts_nav_div:hover span {
+  cursor: pointer;
+  color: #3a6c8d;
+  /* color: #2f75d0; */
+}
+.myContacts_nav_div:active a,
+.myContacts_nav_div:active span  {
+  color: #315a76;
+  /* color: #2b6bbf; */
+}
+.myContacts_nav_div:active {
+  color: #315a76;
+  /* color: #2b6bbf; */
+  border-bottom: 2px solid #315a76;
+}
+
+.myJobs_nav_div:hover a {
+  cursor: pointer;
+  color: #3a6c8d;
+}
+.myJobs_nav_div:hover span {
+  cursor: pointer;
+  color: #3a6c8d;
+}
+.myJobs_nav_div:active a,
+.myJobs_nav_div:active span  {
+  color: #315a76;
+}
+.myJobs_nav_div:active {
+  color: #315a76;
+  border-bottom: 2px solid #315a76;
+}
+
+.myContacts_nav_div li,
+.myJobs_nav_div li {
+  margin-right: 0px;
+}
+
+/* My Account Div ----------------------------------------------------------- */
+.myAccount_div {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-left: 10px;
+}
+.myAccount_div li {
+  margin: 0px;
+  padding: 0px;
+}
+.myAccount_div a {
+  text-decoration: none;
+  color: #4682A9;
+  font-family: "Arial";
+  font-size: 12.5px;
+  font-weight: normal;
+}
+
+.initials-circle {
+  background-color: #4682A9;
+  color: white;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: "Fira Sans Condensed";
+  font-weight: normal;
+}
+.initials-circle li {
+  margin: 0px;
+}
+.initials-circle:hover {
+  cursor: pointer;
+  background-color: #3a6c8d;
+}
+.initials-circle:active {
+  background-color: #315a76;
+}
+
+.wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  overflow:auto;
+}
+
+/* -------------------------------------------------------------------------- */
+
+.fleft {
+  float: left;
+  background: white;
+  height: 495px;
+  /* height: calc(100%-400px); */
+  width: 35%;
+  margin: 20px;
+  margin-right: 10px;
+  border: 1.5px solid #dfdeda;
+  border-radius: 10px;
+}
+
+.fright {
+  float: right;
+  background: white;
+  height: 495px;
+  width: 60%;
+  margin: 20px;
+  margin-left: 10px;
+  border: 1.5px solid #dfdeda;
+  border-radius: 10px;
+  /* border-left: 1px solid #ccc; */
+}
+
+/* Top section of the scrollable area */
+.top-section {
+  display: flex;
+  padding: 10px;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.search-bar {
+  width: calc(90% - 100px); /* Adjust width as needed */
+  height: 20px;
+  margin-right: 13px;
+  padding: 5px;
+  padding-left: 10px;
+  border: 0px solid #ccc;
+  border-radius: 15px;
+  background-color: #ceeff8;
+  color: white;
+}
+
+.contactsView-addContactButton,
+.contactsView-threeDotMenuButton {
+  padding: 3px 3px;
+  margin-right: 10px;
+  border: 0px solid #ccc;
+  border-radius: 15px;
+  background-color: #fff;
+  cursor: pointer;
+}
+.contactsView-addContactButton span.transitioning {
+    transition: all 0.3s ease; /* Add transition for 'all' properties over 0.3 seconds with ease */
+}
+
+.scrollable-section {
+  height: calc(100% - 50px);
+  overflow-y: auto;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+.contact-card {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  padding: 10px;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.contact-card li {
+  list-style-type: none;
+  margin-right: 10px;
+}
+
+.contact-firstRow,
+.contact-seccondRow {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2px;
+}
+
+.contact-card img {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+
+.contact-firstRow li {
+  list-style-type: none;
+  margin-right: 10px;
+}
+
+.contact-name {
+  font-weight: bold;
+}
+
+.bullet {
+  background-color: #888888;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+.contact-workPlace {
+  color: #888888;
+  font-size: 13px;
+}
+
+.contact-email {
+  font-size: 14px;
+  margin-left: 2px;
+}
+
+/* Create New Contact View: ------------------------------------------------- */
+.import-button-div,
+.create-new-contact-button-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  margin: 15px;
+  padding: 15px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: #4682A9;
+  background: white;
+  border: 1.5px solid #4682A9;
+  border-radius: 5px;
+}
+
+.import-button-div:hover,
+.create-new-contact-button-div:hover {
+  cursor: pointer;
+  background: #ecf3f7;
+  border: 1.5px solid #4682A9;
+}
+
+.import-button-div label,
+.create-new-contact-button-div label,
+.import-button-div span,
+.create-new-contact-button-div span {
+  cursor: pointer;
+}
+
+.import-button-div label,
+.create-new-contact-button-div label {
+  margin-bottom: 5px;
+}
+
+/* Add Contact View: -------------------------------------------------------- */
+.add-contact-view,
+.contact-detail-page-view {
+  /* margin-top: 10px; */
+  height: 500px;
+  position: relative;
+}
+
+/* .backButton-div {
+  width: 20px;
+  margin-top: 10px;
+  margin-left: 30px;
+  padding: 3px 3px;
+  border: 0px solid #ccc;
+  border-radius: 15px;
+  background-color: #fff;
+  cursor: pointer;
+} */
+
+.backButton-div {
+  position: absolute;
+  top: 4px; /* Adjust as needed */
+  left: 20px; /* Adjust as needed */
+  z-index: 1000; /* Ensure it appears above other content */
+}
+
+.center-div {
+  height: calc(100% - 90px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 10px;
+  margin-bottom: 0px;
+  padding-top: 0px;
+}
+
+.center-div::-webkit-scrollbar {
+  display: none;
+}
+
+.add-contact-view input {
+  border: 1px solid #444746;
+  height: 25px;
+  width: 200px;
+  border-radius: 4px;
+  padding: 5px 10px 5px 10px;
+  margin-left: 25px;
+  margin-right: 25px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-top: 9px;
+  padding-bottom: 5px;
+}
+
+.email-input-div input {
+  width: 471.5px;
+  position: relative;
+}
+
+.add-contact-view input::placeholder {
+  position: absolute;
+  transition: all 0.3s ease;
+  color: #444746;
+}
+
+.add-contact-view input:focus {
+  border: 1px solid white;
+  outline-color: #4682A9;
+}
+.add-contact-view input:focus::placeholder {
+  transform: translate(-5%, -105%);
+  font-size: 8px;
+  color: #4682A9;
+}
+
+.image-div,
+.firstName-lastName-input-div,
+.email-input-div,
+.position-company-input-div,
+.addContactButton-div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.image-div,
+.addContactButton-div {
+  justify-content: space-around;
+}
+
+.addContactButton-div button {
+  margin-right: 50px;
+}
+
+.file-input-label {
+    cursor: pointer;
+}
+
+.file-input-label img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin: 0px;
+}
+
+.links-div {
+  margin-top: 10px;
+  margin-left: 25px;
+  margin-right: 25px;
+  display: block;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+.links-label-div {
+  margin-bottom: 5px;
+}
+
+.link-and-button {
+  display: flex;
+  flex-direction: row;
+}
+
+.link-inputs-div {
+  display: block;
+  /* margin-right: 95.5px; */
+  margin-right: 66.5px;
+}
+
+.link-inputs-div input {
+  margin: 0px;
+  margin-top: 1px;
+  margin-bottom: 10px;
+  width: 330px;
+}
+
+.first-link ,
+.new-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.add-more-links-div {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 11px;
+}
+
+.add-more-links-div span {
+  color: #888888;
+  margin: 0px;
+  border: 1.5px solid #888888;
+  border-radius: 4px;
+  /* border-top-right-radius: 4px 4px;
+  border-top-left-radius: 4px 4px;
+  border-bottom-right-radius: 4px 4px;
+  border-bottom-left-radius: 4px 4px; */
+  padding: 0px 9px 0px 9px;
+  padding-top: 8.4px;
+  padding-bottom: 7px;
+}
+
+.remove-links-div {
+  margin: 0px;
+}
+
+.remove-links-div span {
+  color: #888888;
+  margin: 0px;
+  margin-left: 10px;
+  margin-right: 0px;
+  margin-bottom: 10px;
+  border: 1.7px solid #888888;
+  border-radius: 50%;
+  font-size: 14pt;
+}
+
+.add-more-links-div span:hover {
+  color: #2f75d0;
+  border:  1.5px solid #2f75d0;
+  cursor: pointer;
+}
+.add-more-links-div span:active {
+  color: #1e6ae1;
+  border: 1.5px solid #1e6ae1;
+  cursor: pointer;
+}
+
+.remove-links-div span:hover {
+  color: #444746;
+  border:  1.7px solid #444746;
+  cursor: pointer;
+}
+.remove-links-div span:active {
+  color: #ff0000;
+  border: 1.7px solid #ff0000;
+  cursor: pointer;
+}
+
+.addContactButton-div {
+  margin-top: 5px;
+}
+
+.addContactButton-div button {
+  margin: 0px;
+  width: 80px;
+  height: 40px;
+  border: 1px solid #4682A9;
+  border-radius: 20px;
+  /* border-top-right-radius: 20px 20px;
+  border-top-left-radius: 20px 20px;
+  border-bottom-right-radius: 20px 20px;
+  border-bottom-left-radius: 20px 20px; */
+  background-color: #4682A9;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  transition: border-color 0.3s, background-color 0.3s;
+}
+
+.addContactButton-div button:hover {
+  border: 1px solid #2f75d0;
+  background-color: #2f75d0;
+  cursor: pointer;
+}
+
+.addContactButton-div button:active {
+  border: 1px solid #1e6ae1;
+  background-color: #1e6ae1;
+  /* #4082bf */
+  /* #2f75d0 */
+  /* #1e6ae1 */
+}
+
+
+/* Contact page View Start --------------------------------------------------- */
+
+.contact-detail-page-view {
+  list-style-type: none;
+}
+
+.contact-page-center-div {
+  height: calc(100% - 90px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 10px;
+  margin-bottom: 0px;
+  padding-top: 0px;
+}
+
+.contact-page-block-div{
+  display: block;
+}
+
+.contact-page-img-view {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-page-img-view img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin: 0px;
+}
+
+.contact-page-name-position-view li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Fira Sans Condensed";
+  margin-top: 5px;
+}
