@@ -1,4 +1,4 @@
-// scripts/signUp.js
+// scripts/index.js
 
 function togglePasswordVisibility(link, passwordId) {
     var passwordInput = document.getElementById(passwordId);
@@ -11,24 +11,34 @@ function togglePasswordVisibility(link, passwordId) {
     }
 }
 
-
 // Get references to the password inputs and the password match message
 var passwordInput = document.getElementById('password');
 var confirmPasswordInput = document.getElementById('confirm-password');
 var passwordMatchMessage = document.getElementById('password-match-message');
 
 // Add event listener to confirmPasswordInput to check password match on input change
-confirmPasswordInput.addEventListener('input', checkPasswordMatch);
+// confirmPasswordInput.addEventListener('input', checkPasswordMatch);
 
-function checkPasswordMatch() {
-    var password = passwordInput.value;
-    var confirmPassword = confirmPasswordInput.value;
+document.getElementById('signup-form').addEventListener('submit', function(event) {
+    event.preventDefault();
 
-    if (password === confirmPassword) {
-        passwordMatchMessage.textContent = 'Passwords match';
-        passwordMatchMessage.style.color = 'green';
-    } else {
-        passwordMatchMessage.textContent = 'Passwords do not match';
-        passwordMatchMessage.style.color = 'red';
-    }
-}
+    const formData = new FormData(this);
+    const userData = {
+        email: formData.get('email'),
+        password: formData.get('password')
+    };
+
+    fetch('/signup', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message);
+        window.location.href = '/signIn.html'; // Redirect to users.html after successful signup
+    })
+    .catch(error => console.error('Error signing up:', error));
+});

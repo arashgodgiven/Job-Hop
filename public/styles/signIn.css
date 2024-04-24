@@ -202,7 +202,7 @@ body {
 } */
 
 .signIn-button-div {
-  width: 87%;
+  width: 100%;
 }
 .signIn-button-div button {
   width: 100%;
@@ -218,6 +218,7 @@ body {
 }
 .signIn-button-div button:hover {
   background: #3a1acf;
+  cursor: pointer;
 }
 
 .create-account-div {
