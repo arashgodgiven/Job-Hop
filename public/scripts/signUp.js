@@ -24,6 +24,7 @@ function checkPasswordMatch() {
     var password = passwordInput.value;
     var confirmPassword = confirmPasswordInput.value;
 
+<<<<<<< Updated upstream
     if (password === confirmPassword) {
         passwordMatchMessage.textContent = 'Passwords match';
         passwordMatchMessage.style.color = 'green';
@@ -32,3 +33,34 @@ function checkPasswordMatch() {
         passwordMatchMessage.style.color = 'red';
     }
 }
+=======
+    const formData = new FormData(this);
+    const userData = {
+        email: formData.get('email'),
+        password: formData.get('password')
+    };
+
+    fetch('/signup/check', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userData)
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) { // Credentials are correct
+        alert(data.message);
+        // window.location.href = '/signIn.html';
+        sessionStorage.setItem('email', userData.email); // Save email in session storage
+        sessionStorage.setItem('password', userData.password); // Save password in session storage
+        window.location.href = '/signUpP2.html';
+        // window.location.href = '/users.html';
+      } else { // Credentials are incorrect
+        alert(data.error);
+        window.location.href = '/users.html';
+      }
+    })
+    .catch(error => console.error('Error signing up:', error));
+});
+>>>>>>> Stashed changes

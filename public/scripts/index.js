@@ -1,5 +1,16 @@
 // scripts/index.js
 
+// Function to display signed in user
+fetch('/current-user')
+  .then(response => response.json())
+  .then(data => {
+    if (data.email) {
+      const accountLink = document.getElementById('myAccountLink');
+      accountLink.textContent = data.email;
+    }
+  })
+  .catch(error => console.error('Error fetching current user:', error));
+
 // Function to togle wrap
 function toggleWrap() {
     var wrapSection = document.getElementById('wrapSection')
