@@ -6,6 +6,8 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const path = require('path');
 const User = require('./models/User');
+const Contact = require('./models/Contact');
+// const router = express.Router();
 require('./db');
 
 const app = express();
@@ -102,21 +104,93 @@ app.get('/users', async (req, res) => {
 
 // Route to fetch currently signed-in user's email
 app.get('/current-user', async (req, res) => {
+  try {
+    // Retrieve user data from session
+    const currentUser = req.session.user;
+    if (currentUser) {
+      const user = await User.findOne({ email: currentUser.email });
+      res.status(200).json({ firstName: user.firstName, lastName: user.lastName, message: 'yes user email' });
+    } else {
+      res.status(401).json({ error: 'User not signed in', message: 'no user email' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch current user' });
+  }
+});
+
+// Delete all users route
+app.delete('/delete/users', async (req, res) => {
+  try {
+    // Delete all users from the database
+    await User.deleteMany({});
+    res.status(200).json({ success: true, message: 'All users deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Failed to delete users' });
+  }
+});
+
+// Delete specific user route
+app.delete('/delete-user/:email', async (req, res) => {
+    const { email } = req.params;
+
     try {
-        // Retrieve user data from session
-        const currentUser = req.session.user;
-        if (currentUser) {
-            res.status(200).json({ email: currentUser.email, message: 'yes user email' });
+        const deletedUser = await User.findOneAndDelete({ email });
+        if (deletedUser) {
+            res.status(200).json({ success: true, message: 'User deleted successfully' });
         } else {
-            res.status(401).json({ error: 'User not signed in', message: 'no user email' });
+            res.status(404).json({ success: false, error: 'User not found' });
         }
     } catch (error) {
-        res.status(500).json({ error: 'Failed to fetch current user' });
+        res.status(500).json({ success: false, error: 'Internal server error' });
     }
 });
 
 // Serve users.html as a static file
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Route to create a new contact for the current user
+app.post('/contacts/create', async (req, res) => {
+  try {
+    const { firstName, lastName, position, company, email } = req.body;
+    const currentUser = req.session.user;
+    if (!currentUser) {
+      return res.status(401).json({ error: 'User not signed in' });
+    }
+    const user = await User.findOne({ email: currentUser.email });
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    const contact = new Contact({
+      firstName,
+      lastName,
+      position,
+      company,
+      email,
+      user: user._id // Associate contact with the current user
+    });
+    await contact.save();
+    res.status(201).json({ success: true, currentUser: currentUser, contact: contact, message: 'Contact created successfully' });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Failed to create contact' });
+  }
+});
+
+// Route to fetch contacts
+app.get('/contacts', async (req, res) => {
+    try {
+        // Fetch contacts from the database for the current user
+        const contacts = await Contact.find({ user: req.session.user._id });
+        if (contacts.length === 0) {
+            return res.status(200).json({ success: false, error: 'No contacts for this user' });
+        }
+        // Send contacts as JSON response
+        res.status(200).json({ success: true, contacts });
+    } catch (error) {
+        res.status(500).json({ success: false, error: 'Failed to fetch contacts' });
+    }
+});
+
+// module.exports = router;
 
 // Start the server
 const PORT = process.env.PORT || 3000;

@@ -4,9 +4,9 @@
 fetch('/current-user')
   .then(response => response.json())
   .then(data => {
-    if (data.email) {
+    if (data.firstName) {
       const accountLink = document.getElementById('myAccountLink');
-      accountLink.textContent = data.email;
+      accountLink.textContent = data.firstName;
     }
   })
   .catch(error => console.error('Error fetching current user:', error));
@@ -66,46 +66,171 @@ function addContact() {
         imageUrl = 'thumbnails/channel-1.jpeg';
     }
 
-    // Format contact workPlace
-    var workPlace = "New Contact";
-    if (position !== null && company !== null) {
-        workPlace = `${position} @ ${company}`;
-    } else if (position !== null) {
-        workPlace = position;
-    } else if (company !== null) {
-        workPlace = company;
-    }
+    // // Format contact workPlace
+    // var workPlace = "New Contact";
+    // if (position !== null && company !== null) {
+    //     workPlace = `${position} @ ${company}`;
+    // } else if (position !== null) {
+    //     workPlace = position;
+    // } else if (company !== null) {
+    //     workPlace = company;
+    // }
+    //
+    // // Create contact card HTML
+    // var contactCard = `
+    //     <div class="contact-card" onclick="toggleContactDetailPageView()">
+    //         <li class="contact-leftSide"><img src="${imageUrl}" alt="contact-image"></li>
+    //         <div class="contact-rightSide">
+    //             <div class="contact-firstRow">
+    //                 <li class="firstRow"><a class="contact-name">${firstName} ${lastName}</a></li>
+    //                 <div class="bullet"></div>
+    //                 <li class="firstRow"><a class="contact-workPlace">${workPlace}</a></li>
+    //             </div>
+    //             <div class="contact-seccondRow">
+    //                 <div class="contact-email">${email}</div>
+    //             </div>
+    //         </div>
+    //     </div>
+    // `;
 
-    // Create contact card HTML
-    var contactCard = `
-        <div class="contact-card" onclick="toggleContactDetailPageView()">
-            <li class="contact-leftSide"><img src="${imageUrl}" alt="contact-image"></li>
-            <div class="contact-rightSide">
-                <div class="contact-firstRow">
-                    <li class="firstRow"><a class="contact-name">${firstName} ${lastName}</a></li>
-                    <div class="bullet"></div>
-                    <li class="firstRow"><a class="contact-workPlace">${workPlace}</a></li>
-                </div>
-                <div class="contact-seccondRow">
-                    <div class="contact-email">${email}</div>
-                </div>
-            </div>
-        </div>
-    `;
+    // // Append contact card to the scrollable section
+    // document.querySelector('.scrollable-section').insertAdjacentHTML('beforeend', contactCard);
+    //
+    // // Reset form inputs
+    // document.getElementById('firstName').value = '';
+    // document.getElementById('lastName').value = '';
+    // document.getElementById('email').value = '';
+    // document.getElementById('position').value = ''; // Reset position input
+    // document.getElementById('company').value = ''; // Reset company input
+    // imageInput.value = ''; // Reset the file input
 
-    // Append contact card to the scrollable section
-    document.querySelector('.scrollable-section').insertAdjacentHTML('beforeend', contactCard);
+    // toggleAddNewContactView()
 
-    // Reset form inputs
-    document.getElementById('firstName').value = '';
-    document.getElementById('lastName').value = '';
-    document.getElementById('email').value = '';
-    document.getElementById('position').value = ''; // Reset position input
-    document.getElementById('company').value = ''; // Reset company input
-    imageInput.value = ''; // Reset the file input
+    // Create contact object
+    var contact = {
+      firstName: firstName,
+      lastName: lastName,
+      position: position,
+      company: company,
+      email: email
+    };
 
-    toggleAddNewContactView()
+    // Send POST request to create new contact
+    fetch('/contacts/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(contact)
+    })
+    .then(response => {
+      console.log(response); // Log the entire response object
+      return response.json(); // Parse the response body as JSON)
+    })
+    .then(data => {
+      console.log(data);
+      // console.log('Current User:', data.currentUser.firstName);
+      // console.log('Current User First Name:', data.currentUser.firstName);
+      console.log('Contact created:', data.contact);
+      console.log('Constact owner:', data.contact.user.firstName);
+      if (data.success) { // Credentials are correct
+        alert(data.message);
+      } else { // Credentials are incorrect
+        alert(data.message);
+      }
+    })
+    .catch(error => console.error('Error creating contact:', error));
+
+    // toggleAddNewContactView()
+
+    fetch('/contacts')
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            console.log('fetched contacts:');
+            data.contacts.forEach(contact => {
+                console.log('Contact:', contact.firstName);
+            });
+          } else {
+            alert(data.error);
+          }
+        })
+        .catch(error => console.error('Error fetching contacts:', error));
 }
+
+function toggleAddNewContactView() {
+  // fetch('/contacts')
+  //     .then(response => {
+  //         if (!response.ok) {
+  //             throw new Error('Failed to fetch contacts');
+  //         }
+  //         return response.json();
+  //     })
+  //     .then(contacts => {
+  //         // Populate contacts on the page
+  //         populateContacts(contacts);
+  //     })
+  //     .catch(error => {
+  //         console.error('Error:', error);
+  //     });
+
+  var contactAddMethodView = document.getElementById('contactAddMethodView');
+  var formSection = document.getElementById('formSection');
+  var addContactButton = document.querySelector('.contactsView-addContactButton span');
+
+  if (contactAddMethodView.style.display == 'none') {
+    contactAddMethodView.style.display = 'block';
+    contactsListView.style.display = 'none';
+    addContactButton.textContent = 'close';
+    addContactButton.classList.add('transitioning');
+  } else {
+    contactAddMethodView.style.display = 'none';
+    formSection.style.display = 'none';
+    contactsListView.style.display = 'block';
+    addContactButton.textContent = 'add';
+    addContactButton.classList.remove('transitioning');
+  }
+}
+
+// // Function to populate contacts
+// function populateContacts(contacts) {
+//     // Loop through each contact and create a contact card
+//     contacts.forEach(contact => {
+//         const { imageUrl, firstName, lastName, position, company, email } = contact;
+//
+//         // Create contact card HTML
+//         const contactCard = `
+//             <div class="contact-card" onclick="toggleContactDetailPageView()">
+//                 <li class="contact-leftSide"><img src="${imageUrl}" alt="contact-image"></li>
+//                 <div class="contact-rightSide">
+//                     <div class="contact-firstRow">
+//                         <li class="firstRow"><a class="contact-name">${firstName} ${lastName}</a></li>
+//                         <div class="bullet"></div>
+//                         <li class="firstRow"><a class="contact-workPlace">${position ? position + ' @ ' : ''}${company ? company : ''}</a></li>
+//                     </div>
+//                     <div class="contact-seccondRow">
+//                         <div class="contact-email">${email}</div>
+//                     </div>
+//                 </div>
+//             </div>
+//         `;
+//
+//         // Append contact card to the scrollable section
+//         document.querySelector('.scrollable-section').insertAdjacentHTML('beforeend', contactCard);
+//         // Reset form inputs
+//         document.getElementById('firstName').value = '';
+//         document.getElementById('lastName').value = '';
+//         document.getElementById('email').value = '';
+//         document.getElementById('position').value = ''; // Reset position input
+//         document.getElementById('company').value = ''; // Reset company input
+//         imageInput.value = ''; // Reset the file input
+//
+//         toggleAddNewContactView()
+//     });
+// }
+
+
+
 
 // Function to add more link inputs
 function addMoreLinks() {
@@ -209,25 +334,6 @@ const imageLabel = document.querySelector('.file-input-label');
 imageLabel.addEventListener('click', function() {
     imageInput.click();
 });
-
-function toggleAddNewContactView() {
-  var contactAddMethodView = document.getElementById('contactAddMethodView');
-  var formSection = document.getElementById('formSection');
-  var addContactButton = document.querySelector('.contactsView-addContactButton span');
-
-  if (contactAddMethodView.style.display == 'none') {
-    contactAddMethodView.style.display = 'block';
-    contactsListView.style.display = 'none';
-    addContactButton.textContent = 'close';
-    addContactButton.classList.add('transitioning');
-  } else {
-    contactAddMethodView.style.display = 'none';
-    formSection.style.display = 'none';
-    contactsListView.style.display = 'block';
-    addContactButton.textContent = 'add';
-    addContactButton.classList.remove('transitioning');
-  }
-}
 
 function removeContactDetailPageView() {
     var contactDetailViewSection = document.getElementById('contactDetailViewSection');

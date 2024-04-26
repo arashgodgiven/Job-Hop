@@ -33,27 +33,21 @@
           <h1>Sign in</h1>
           <h3>Hop on board with your connections!</h3>
         </div>
-        <form action="/signIn" method="POST">
+        <form id="signin-form" action="/signIn" method="POST">
           <div class="signIn-email-input-div">
-            <input type="email" id="email" name="email" placeholder="Email or Phone" required>
+            <input type="email" id="email" name="email" autocomplete="username" placeholder="Email or Phone" required>
           </div>
           <div class="signIn-password-input-div">
             <a href="#" class="show-password-link" onclick="togglePasswordVisibility(this)">show</a>
-            <input type="password" id="password" name="password" placeholder="Password" required>
+            <input type="password" id="password" name="password" autocomplete="new-password" placeholder="Password" required>
           </div>
           <div class="signIn-problem-link-div">
             <a href="#">Problem signing in?</a>
           </div>
-<<<<<<< Updated upstream
-=======
           <div class="signIn-button-div">
             <button type="submit" id="signin-button">Sign in</button>
           </div>
->>>>>>> Stashed changes
         </form>
-        <div class="signIn-button-div">
-          <button type="button" onclick="signInAuth()">Sign in</button>
-        </div>
         <div class="create-account-div">
           <div class="line-or-line-div">
             <hr class="horizontal-line">

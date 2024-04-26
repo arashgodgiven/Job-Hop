@@ -10,8 +10,6 @@ function togglePasswordVisibility(link) {
         link.textContent = "show";
     }
 }
-<<<<<<< Updated upstream
-=======
 
 // document.getElementById('signin-form').addEventListener('submit', function(event) {
 //     event.preventDefault();
@@ -79,4 +77,3 @@ document.getElementById('signin-form').addEventListener('submit', function(event
     })
     .catch(error => console.error('Error signing in:', error));
 });
->>>>>>> Stashed changes

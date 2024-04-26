@@ -173,7 +173,7 @@ body {
 }
 
 .signUp-button-div {
-  width: 87%;
+  width: 100%;
 }
 .signUp-button-div button {
   width: 100%;
@@ -189,6 +189,7 @@ body {
 }
 .signUp-button-div button:hover {
   background: #3a1acf;
+  cursor: pointer;
 }
 
 .existing-user-div {

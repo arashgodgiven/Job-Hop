@@ -2,7 +2,7 @@
 
 const mongoose = require('mongoose');
 
-const contactSchema = new contact.Schema({
+const contactSchema = new mongoose.Schema({
   firstName: {
     type: String,
     required: true
@@ -21,6 +21,10 @@ const contactSchema = new contact.Schema({
     type: String,
     required: true,
     unique: true
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
   }
 });
 
