@@ -1,9 +1,11 @@
 /* index.css */
+
 body {
   background-color: #f4f2ee;
   list-style-type: none;
   margin: 0px;
-  font-family: Arial, sans-serif;
+  /* font-family: Arial, sans-serif; */
+  font-family: "Assistant", sans-serif;
 }
 
 .material-symbols-outlined {
@@ -16,6 +18,7 @@ body {
 }
 .material-symbols-outlined:hover {
   color: #3a6c8d;
+  cursor: pointer;
 }
 .material-symbols-outlined:active {
   color: #315a76;
@@ -591,6 +594,57 @@ body {
 
 
 /* Contact page View Start --------------------------------------------------- */
+
+.contact-menuButton-div {
+  position: absolute;
+  top: 4px;
+  right: 20px;
+  z-index: 1000;
+}
+.modal {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: calc(100% + 0px);
+  text-align: center;
+}
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #fefefe;
+  height: 105px;
+  width: 100%;
+  text-align: center;
+  border: 1.5px solid #ced1dc;
+  border-radius: 4px;
+  box-shadow: -1px 0 15px rgba(0, 0, 0, 0.05), 1px 0 15px rgba(0, 0, 0, 0.05), 0 2px 15px rgba(0, 0, 0, 0.05);
+}
+.modal-content div {
+  display: flex;
+  align-items: left;
+  width: 80%;
+  padding: 5px 12px 5px 5px;
+}
+.modal-content div span {
+  margin-right: 5px;
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 30,
+  'opsz' 10
+}
+.modal-content div li {
+  font-family: "Assistant", sans-serif;
+  font-weight: normal;
+  font-size: 13.5px;
+  color: #464646;
+  margin-top: 5px;
+}
+.modal-content div:hover {
+  cursor: pointer;
+}
 
 .contact-detail-page-view {
   list-style-type: none;

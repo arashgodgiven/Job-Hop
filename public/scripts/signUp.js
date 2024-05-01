@@ -1,4 +1,4 @@
-// scripts/index.js
+// scripts/signUp.js
 
 function togglePasswordVisibility(link, passwordId) {
     var passwordInput = document.getElementById(passwordId);
@@ -28,7 +28,7 @@ document.getElementById('signup-form').addEventListener('submit', function(event
         password: formData.get('password')
     };
 
-    fetch('/signup', {
+    fetch('/signup/check', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -37,8 +37,17 @@ document.getElementById('signup-form').addEventListener('submit', function(event
     })
     .then(response => response.json())
     .then(data => {
+      if (data.success) { // Credentials are correct
         alert(data.message);
-        window.location.href = '/signIn.html'; // Redirect to users.html after successful signup
+        // window.location.href = '/signIn.html';
+        sessionStorage.setItem('email', userData.email); // Save email in session storage
+        sessionStorage.setItem('password', userData.password); // Save password in session storage
+        window.location.href = '/signUpP2.html';
+        // window.location.href = '/users.html';
+      } else { // Credentials are incorrect
+        alert(data.error);
+        window.location.href = '/users.html';
+      }
     })
     .catch(error => console.error('Error signing up:', error));
 });

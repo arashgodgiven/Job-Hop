@@ -37,7 +37,11 @@
           <div class="initials-circle">
             <li style="display:none;">AK</li>
           </div>
-          <li class="myAccount_li"><a href="signIn.html" id="myAccountLink">Account</a></li>
+          <li class="myAccount_li"><a href="signIn.html" id="myAccountLink">Sign in</a></li>
+        </div>
+        <div class="delete-all-contacts">
+          <li class="delete-all-contacts-li"><a href="#" id="deleteContactsLink">DELETE</a></li>
+          <li class="fetch-all-contacts-li"><a href="#" id="fetchContactsLink">FETCH</a></li>
         </div>
       </div>
     </ul>
@@ -168,23 +172,44 @@
 
         <!-- Contact page View -->
         <div class="contact-detail-page-view" id="contactDetailViewSection" style="display:none;">
-            <div class="backButton-div">
-                <span class="material-symbols-outlined" type="button" onclick="removeContactDetailPageView()">arrow_back_ios</span>
-            </div>
-            <div class="contact-page-center-div">
-                <div class="contact-page-block-div">
-                    <div class="contact-page-img-view">
-                        <img class="contact-image" src="" alt="contact-image">
-                    </div>
-                    <div class="contact-page-name-position-view">
-                        <li class="contact-page-li"><a class="contact-name">John Doe</a></li>
-                        <li class="contact-page-li"><a class="contact-workPlace">Head of product @ Appara</a></li>
-                    </div>
-                    <div class="">
-                        <li class="contact-page-li"><a class="contact-email">john.doe@example.com</a></li>
-                    </div>
+          <div class="backButton-div">
+            <span class="material-symbols-outlined" type="button" onclick="removeContactDetailPageView()">arrow_back_ios</span>
+          </div>
+          <div class="contact-menuButton-div">
+            <span class="material-symbols-outlined" type="button" id="contactMoreVertButton">more_vert</span>
+            <!-- Modal -->
+            <div class="modal" id="contactModal">
+              <div class="modal-content">
+                <div>
+                  <span class="material-symbols-outlined" type="button" id="shareContactButton">share</span>
+                  <li>Share</li>
                 </div>
+                <div>
+                  <span class="material-symbols-outlined" type="button" id="editContactButton">edit_note</span>
+                  <li>Edit</li>
+                </div>
+                <div>
+                  <span class="material-symbols-outlined" type="button" id="deleteContactButton">delete</span>
+                  <li>Delete</li>
+                </div>
+              </div>
             </div>
+          </div>
+
+          <div class="contact-page-center-div">
+            <div class="contact-page-block-div">
+              <div class="contact-page-img-view">
+                <img class="contact-image" src="" alt="contact-image">
+              </div>
+              <div class="contact-page-name-position-view">
+                <li class="contact-page-li"><a class="contact-name">John Doe</a></li>
+                <li class="contact-page-li"><a class="contact-workPlace">Head of product @ Appara</a></li>
+              </div>
+              <div class="">
+                <li class="contact-page-li"><a class="contact-email">john.doe@example.com</a></li>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

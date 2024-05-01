@@ -1,3 +1,5 @@
+<!-- public/users.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,18 +11,16 @@
     <h1>User List</h1>
     <ul id="user-list"></ul>
 
-    <script>
-        fetch('/users')
-            .then(response => response.json())
-            .then(users => {
-                const userList = document.getElementById('user-list');
-                users.forEach(user => {
-                    const li = document.createElement('li');
-                    li.textContent = user.email;
-                    userList.appendChild(li);
-                });
-            })
-            .catch(error => console.error('Error fetching users:', error));
-    </script>
+    <div class="delete-users-button-div">
+      <button type="button" id="delete-users-button">Delete All</button>
+    </div>
+
+    <form id="delete-user-form">
+        <label for="delete-email">Enter Email Address to Delete User:</label>
+        <input type="email" id="delete-email" name="delete-email" required>
+        <button type="submit">Delete User</button>
+    </form>
+
+    <script src="scripts/users.js"></script>
 </body>
 </html>
