@@ -6,7 +6,7 @@ fetch('/current-user')
 .then(data => {
   console.log(data)
   if (data.firstName) {
-    console.log(data.user)
+    console.log('Current user: ', data.user)
     const accountLink = document.getElementById('myAccountLink');
     accountLink.textContent = data.firstName;
   }
@@ -161,9 +161,11 @@ function addContact() {
       // console.log('Contact created:', data.contact);
       // console.log('Constact owner:', data.currentUser.firstName);
       if (data.success) { // Credentials are correct
-        alert(data.message);
+        console.log(data.message);
+        // alert(data.message);
       } else { // Credentials are incorrect
-        alert(data.message);
+        console.log(data.message);
+        // alert(data.message);
       }
     })
     .catch(error => console.error('Error creating contact:', error));
@@ -173,6 +175,14 @@ function addContact() {
 }
 
 function fetchContacts() {
+  // Remove previous contact cards from HTML
+  const contactsListView = document.getElementById('contactsListView');
+  const contactCards = contactsListView.querySelectorAll('.contact-card');
+  contactCards.forEach(contactCard => {
+    contactCard.remove();
+  });
+
+  // Fetch contacts
   fetch('/contacts')
   .then(response => response.json())
   .then(data => {
@@ -183,7 +193,8 @@ function fetchContacts() {
           populateContacts(contact);
       });
     } else {
-      alert(data.error);
+      console.log(data.error);
+      // alert(data.error);
     }
   })
   .catch(error => console.error('Error fetching contacts:', error));
@@ -211,32 +222,32 @@ function toggleAddNewContactView() {
 // <li class="contact-leftSide"><img src=${contact.image} alt="contact-image"></li>
 // Function to populate contacts
 function populateContacts(contact) {
-    const contactCard = `
-        <div class="contact-card" onclick="toggleContactDetailPageView()">
-            <li class="contact-leftSide"><img src="thumbnails/placeholder.jpeg" alt="contact-image"></li>
+  const contactCard = `
+      <div class="contact-card" onclick="toggleContactDetailPageView(this)">
+          <li class="contact-leftSide"><img src="thumbnails/placeholder.jpeg" alt="contact-image"></li>
 
-            <div class="contact-rightSide">
-                <div class="contact-firstRow">
-                    <li class="firstRow"><a class="contact-name">${contact.firstName} ${contact.lastName}</a></li>
-                    <div class="bullet"></div>
-                    <li class="firstRow"><a class="contact-workPlace">${contact.position ? contact.position + ' @ ' : ''}${contact.company ? contact.company : ''}</a></li>
-                </div>
-                <div class="contact-seccondRow">
-                    <div class="contact-email">${contact.email}</div>
-                </div>
-            </div>
-        </div>
-    `;
+          <div class="contact-rightSide">
+              <div class="contact-firstRow">
+                  <li class="firstRow"><a class="contact-name">${contact.firstName} ${contact.lastName}</a></li>
+                  <div class="bullet"></div>
+                  <li class="firstRow"><a class="contact-workPlace">${contact.position ? contact.position + ' @ ' : ''}${contact.company ? contact.company : ''}</a></li>
+              </div>
+              <div class="contact-seccondRow">
+                  <div class="contact-email">${contact.email}</div>
+              </div>
+          </div>
+      </div>
+  `;
 
-    // Append contact card to the scrollable section
-    document.querySelector('.scrollable-section').insertAdjacentHTML('beforeend', contactCard);
-    // Reset form inputs
-    document.getElementById('firstName').value = '';
-    document.getElementById('lastName').value = '';
-    document.getElementById('email').value = '';
-    document.getElementById('position').value = ''; // Reset position input
-    document.getElementById('company').value = ''; // Reset company input
-    imageInput.value = ''; // Reset the file input
+  // Append contact card to the scrollable section
+  document.querySelector('.scrollable-section').insertAdjacentHTML('beforeend', contactCard);
+  // Reset form inputs
+  document.getElementById('firstName').value = '';
+  document.getElementById('lastName').value = '';
+  document.getElementById('email').value = '';
+  document.getElementById('position').value = ''; // Reset position input
+  document.getElementById('company').value = ''; // Reset company input
+  imageInput.value = ''; // Reset the file input
 }
 
 
@@ -398,9 +409,14 @@ document.getElementById('deleteContactButton').addEventListener('click', functio
   .then(response => response.json())
   .then(data => {
     if (data.success) {
-      console.log(data.message); // Log success message
+      console.log(data.message);
+      // alert(data.message);
+      fetchContacts();
+      toggleModal();
     } else {
-      console.error(data.error); // Log error message
+      alert(data.error);
+      fetchContacts();
+      toggleModal();
     }
   })
   .catch(error => {
@@ -410,4 +426,3 @@ document.getElementById('deleteContactButton').addEventListener('click', functio
 
 // Fetch contacts on load
 fetchContacts();
-// deleteAllContacts();

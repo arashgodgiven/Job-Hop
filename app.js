@@ -229,21 +229,28 @@ app.delete('/contacts/delete-all', async (req, res) => {
 
 // Route to delete specific contact
 app.delete('/delete-contact/:email', async (req, res) => {
+    const { email } = req.params;
     try {
         // Check if user is signed in
         const currentUser = req.session.user;
         if (!currentUser) {
             return res.status(401).json({ success: false, error: 'User not signed in' });
         }
+        const user = await User.findOne({ email: currentUser.email });
         // Find the contact by email
-        const email = req.params.email;
-        const contact = await Contact.findOne({ email, user: currentUser._id });
+        // const email = req.params.email;
+        const contact = await Contact.findOne({ email, user: user._id });
+        const contacts = await Contact.find({ user: user._id });
         // If contact does not exist, return error
         if (!contact) {
-            return res.status(404).json({ success: false, error: 'Contact not found' });
+            return res.status(404).json({ success: false, foundContact: contact, contactEmail: email, contacts: contacts, user: user, error: 'Contact not found' });
         }
+        // else if (contact) {
+        //     return res.status(200).json({ success: false, foundContact: contact, contactEmail: email, contacts: contacts, user: user, error: 'Contact found!' });
+        // }
         // Delete the contact
-        await contact.remove();
+        // await contact.remove();
+        await Contact.findOneAndDelete({ email, user: user._id });
         // Send success response
         res.status(200).json({ success: true, message: 'Contact deleted successfully' });
     } catch (error) {
