@@ -13,71 +13,6 @@ fetch('/current-user')
 })
 .catch(error => console.error('Error fetching current user:', error));
 
-
-// // Function to deleteContactsLink
-// const deleteContactsLink = document.getElementById('deleteContactsLink');
-// deleteContactsLink.addEventListener('click', deleteAllContacts);
-// function deleteAllContacts() {
-//   // Remove from databse
-//   fetch('/contacts/delete-all', {
-//       method: 'DELETE'
-//   })
-//   .then(response => response.json())
-//   .then(data => {
-//       if (data.success) {
-//         console.log("Contacts on Delete:")
-//         if (data.contacts.length === 0) {
-//           console.log('No Contacts');
-//         } else {
-//           data.contacts.forEach(contact => {
-//               console.log('Contact:', contact.firstName);
-//           });
-//         }
-//         alert(data.message);
-//         toggleAddNewContactView();
-//         toggleAddNewContactView();
-//       } else {
-//         console.log('contacts generated after deletion');
-//         console.log('currentUser: ', data.user);
-//         console.log('foundUser: ', data.foundUser);
-//         console.log('fetched contacts:');
-//         data.contacts.forEach(contact => {
-//             console.log('Contact:', contact.firstName);
-//         });
-//         alert(data.error);
-//         toggleAddNewContactView();
-//         toggleAddNewContactView();
-//       }
-//   })
-//   // Remove from HTML
-//   const contactsListView = document.getElementById('contactsListView');
-//   const contactCards = contactsListView.querySelectorAll('.contact-card');
-//   contactCards.forEach(contactCard => {
-//     contactCard.remove();
-//   });
-// }
-//
-// // Function to fetchContactsLink
-// const fetchContactsLink = document.getElementById('fetchContactsLink');
-// fetchContactsLink.addEventListener('click', ftechAllContacts);
-// function ftechAllContacts() {
-//   fetch('/contacts')
-//   .then(response => response.json())
-//   .then(data => {
-//     if (data.success) {
-//       console.log('fetched contacts:');
-//       data.contacts.forEach(contact => {
-//           console.log('Contact:', contact.firstName);
-//       });
-//     } else {
-//       alert(data.error);
-//     }
-//   })
-//   .catch(error => console.error('Error fetching contacts:', error));
-// }
-
-
-
 // Function to togle wrap
 function toggleWrap() {
     var wrapSection = document.getElementById('wrapSection')
@@ -140,7 +75,7 @@ function addContact() {
       position: position,
       company: company,
       email: email,
-      // image: imageUrl
+      image: imageUrl
     };
     console.log(firstName, lastName, position, company, email, imageUrl);
 
@@ -219,13 +154,13 @@ function toggleAddNewContactView() {
   }
 }
 
-// <li class="contact-leftSide"><img src=${contact.image} alt="contact-image"></li>
+// <li class="contact-leftSide"><img src="thumbnails/placeholder.jpeg" alt="contact-image"></li>
 // Function to populate contacts
 function populateContacts(contact) {
   const contactCard = `
       <div class="contact-card" onclick="toggleContactDetailPageView(this)">
-          <li class="contact-leftSide"><img src="thumbnails/placeholder.jpeg" alt="contact-image"></li>
 
+          <li class="contact-leftSide"><img src=${contact.image} alt="contact-image"></li>
           <div class="contact-rightSide">
               <div class="contact-firstRow">
                   <li class="firstRow"><a class="contact-name">${contact.firstName} ${contact.lastName}</a></li>
@@ -249,9 +184,6 @@ function populateContacts(contact) {
   document.getElementById('company').value = ''; // Reset company input
   imageInput.value = ''; // Reset the file input
 }
-
-
-
 
 // Function to add more link inputs
 function addMoreLinks() {
@@ -333,18 +265,18 @@ function toggleContactDetailPageView(contactCard) {
         contactDetailViewSection.style.display = 'block';
     }
 
-    // var contactImageSrc = contactCard.querySelector('.contact-leftSide img').src;
+    var contactImageSrc = contactCard.querySelector('.contact-leftSide img').src;
     var contactName = contactCard.querySelector('.contact-name').textContent;
     var contactWorkPlace = contactCard.querySelector('.contact-workPlace').textContent;
     var contactEmail = contactCard.querySelector('.contact-email').textContent;
 
     // Update content in the detail page with the contact information
-    // var contactImageElement = contactDetailViewSection.querySelector('.contact-image');
+    var contactImageElement = contactDetailViewSection.querySelector('.contact-image');
     var contactNameElement = contactDetailViewSection.querySelector('.contact-name');
     var contactWorkPlaceElement = contactDetailViewSection.querySelector('.contact-workPlace');
     var contactEmailElement = contactDetailViewSection.querySelector('.contact-email');
 
-    // contactImageElement.src = contactImageSrc;
+    contactImageElement.src = contactImageSrc;
     contactNameElement.textContent = contactName;
     contactWorkPlaceElement.textContent = contactWorkPlace;
     contactEmailElement.textContent = contactEmail;
@@ -352,13 +284,28 @@ function toggleContactDetailPageView(contactCard) {
     contactCardVar = contactCard;
 }
 
-const imageInput = document.getElementById('image');
-const imageLabel = document.querySelector('.file-input-label');
 
-imageLabel.addEventListener('click', function() {
+// Function to upload image in add-contact-view
+const imageInput = document.getElementById('image');
+const contactImage = document.getElementById('contactImage')
+
+imageInput.addEventListener('change', function() {
+    const file = this.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            contactImage.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+});
+const imageLabel = document.querySelector('.file-input-label');
+imageLabel.addEventListener('click', function(event) {
+    event.preventDefault();
     imageInput.click();
 });
 
+// Function to toggle contact detail view
 function removeContactDetailPageView() {
     var contactDetailViewSection = document.getElementById('contactDetailViewSection');
     var formSection = document.getElementById('formSection');

@@ -151,7 +151,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Route to create a new contact for the current user
 app.post('/contacts/create', async (req, res) => {
   try {
-    const { firstName, lastName, position, company, email } = req.body;
+    const { firstName, lastName, position, company, email, image } = req.body;
     const currentUser = req.session.user;
     if (!currentUser) {
       return res.status(401).json({ error: 'User not signed in' });
@@ -166,34 +166,35 @@ app.post('/contacts/create', async (req, res) => {
       position,
       company,
       email,
-      // image,
+      image,
       user: user._id // Associate contact with the current user
     });
     await contact.save();
     res.status(201).json({ success: true, currentUser: user, contact: contact, message: 'Contact created successfully' });
   } catch (error) {
+    // const { firstName, lastName, position, company, email } = req.body;
     res.status(500).json({ success: false, error: 'Failed to create contact' });
   }
 });
 
 // Route to fetch contacts
 app.get('/contacts', async (req, res) => {
-    try {
-        // Fetch contacts from the database for the current user
-        const currentUser = req.session.user;
-        if (!currentUser) {
-          return res.status(401).json({ error: 'User not signed in' });
-        }
-        const user = await User.findOne({ email: currentUser.email });
-        const contacts = await Contact.find({ user: user._id });
-        if (contacts.length === 0) {
-            return res.status(200).json({ success: false, error: 'No contacts for this user' });
-        }
-        // Send contacts as JSON response
-        res.status(200).json({ success: true, contacts: contacts , currentUser: user});
-    } catch (error) {
-        res.status(500).json({ success: false, error: 'Failed to fetch contacts' });
+  try {
+    // Fetch contacts from the database for the current user
+    const currentUser = req.session.user;
+    if (!currentUser) {
+      return res.status(401).json({ error: 'User not signed in' });
     }
+    const user = await User.findOne({ email: currentUser.email });
+    const contacts = await Contact.find({ user: user._id });
+    if (contacts.length === 0) {
+        return res.status(200).json({ success: false, error: 'No contacts for this user' });
+    }
+    // Send contacts as JSON response
+    res.status(200).json({ success: true, contacts: contacts , currentUser: user});
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Failed to fetch contacts' });
+  }
 });
 
 // Route to delete all contacts
