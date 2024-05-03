@@ -39,10 +39,6 @@
           </div>
           <li class="myAccount_li"><a href="signIn.html" id="myAccountLink">Sign in</a></li>
         </div>
-        <div class="delete-all-contacts">
-          <li class="delete-all-contacts-li"><a href="#" id="deleteContactsLink">DELETE</a></li>
-          <li class="fetch-all-contacts-li"><a href="#" id="fetchContactsLink">FETCH</a></li>
-        </div>
       </div>
     </ul>
 
@@ -61,7 +57,7 @@
         <div class="contacts-list-view-div" id="contactsListView">
           <div class="scrollable-section">
             <!-- Content here will be scrollable -->
-            <div class="contact-card" onclick="toggleContactDetailPageView(this)">
+            <!-- <div class="contact-card" onclick="toggleContactDetailPageView(this)">
               <li class="contact-leftSide"><img src="thumbnails/channel-1.jpeg" alt="contact-image"></li>
               <div class="contact-rightSide">
                 <div class="contact-firstRow">
@@ -73,35 +69,7 @@
                   <div class="contact-email">john.doe@example.com</div>
                 </div>
               </div>
-            </div>
-
-            <div class="contact-card" onclick="toggleContactDetailPageView(this)">
-              <li class="contact-leftSide"><img src="thumbnails/channel-3.jpeg" alt="contact-image"></li>
-              <div class="contact-rightSide">
-                <div class="contact-firstRow">
-                  <li class="firstRow"><a class="contact-name">jane mark</a></li>
-                  <div class="bullet"></div>
-                  <li class="firstRow"><a class="contact-workPlace">Head of this @ Appara</a></li>
-                </div>
-                <div class="contact-seccondRow">
-                  <div class="contact-email">jane.mark@example.com</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="contact-card" onclick="toggleContactDetailPageView(this)">
-              <li class="contact-leftSide"><img src="thumbnails/my-channel.jpeg" alt="contact-image"></li>
-              <div class="contact-rightSide">
-                <div class="contact-firstRow">
-                  <li class="firstRow"><a class="contact-name">Michael Scott</a></li>
-                  <div class="bullet"></div>
-                  <li class="firstRow"><a class="contact-workPlace">Head of that @ Appara</a></li>
-                </div>
-                <div class="contact-seccondRow">
-                  <div class="contact-email">michael.scott@example.com</div>
-                </div>
-              </div>
-            </div>
+            </div> -->
           </div>
         </div>
 
@@ -166,7 +134,10 @@
             </form>
           </div>
           <div class="addContactButton-div">
-            <button type="button" onclick="addContact()">Submit</button>
+            <button type="button" id="addContactButton" onclick="addContact()">Submit</button>
+          </div>
+          <div class="saveEditedContactButton-div">
+            <button type="button" id="saveEditedContactButton" onclick="saveContact()" style="display:none;">Save</button>
           </div>
         </div>
 
@@ -180,15 +151,15 @@
             <!-- Modal -->
             <div class="modal" id="contactModal">
               <div class="modal-content">
-                <div>
+                <div class="shareContactButton-div" id="shareContactButton">
                   <span class="material-symbols-outlined" type="button" id="shareContactButton">share</span>
                   <li>Share</li>
                 </div>
-                <div>
+                <div class="editContactButton-div" id="editContactButton">
                   <span class="material-symbols-outlined" type="button" id="editContactButton">edit_note</span>
                   <li>Edit</li>
                 </div>
-                <div>
+                <div class="deleteContactButton-div" id="deleteContactButton">
                   <span class="material-symbols-outlined" type="button" id="deleteContactButton">delete</span>
                   <li>Delete</li>
                 </div>
@@ -205,7 +176,7 @@
                 <li class="contact-page-li"><a class="contact-name">John Doe</a></li>
                 <li class="contact-page-li"><a class="contact-workPlace">Head of product @ Appara</a></li>
               </div>
-              <div class="">
+              <div class="contact-email-div">
                 <li class="contact-page-li"><a class="contact-email">john.doe@example.com</a></li>
               </div>
             </div>

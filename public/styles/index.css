@@ -207,7 +207,6 @@ body {
   float: left;
   background: white;
   height: 495px;
-  /* height: calc(100%-400px); */
   width: 35%;
   margin: 20px;
   margin-right: 10px;
@@ -224,7 +223,6 @@ body {
   margin-left: 10px;
   border: 1.5px solid #dfdeda;
   border-radius: 10px;
-  /* border-left: 1px solid #ccc; */
 }
 
 /* Top section of the scrollable area */
@@ -358,21 +356,9 @@ body {
 /* Add Contact View: -------------------------------------------------------- */
 .add-contact-view,
 .contact-detail-page-view {
-  /* margin-top: 10px; */
   height: 500px;
   position: relative;
 }
-
-/* .backButton-div {
-  width: 20px;
-  margin-top: 10px;
-  margin-left: 30px;
-  padding: 3px 3px;
-  border: 0px solid #ccc;
-  border-radius: 15px;
-  background-color: #fff;
-  cursor: pointer;
-} */
 
 .backButton-div {
   position: absolute;
@@ -436,20 +422,23 @@ body {
 .firstName-lastName-input-div,
 .email-input-div,
 .position-company-input-div,
-.addContactButton-div {
+.addContactButton-div,
+.saveEditedContactButton-div {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
 .image-div,
-.addContactButton-div {
+.addContactButton-div,
+.saveEditedContactButton-div {
   justify-content: space-around;
 }
 
-.addContactButton-div button {
+/* .addContactButton-div button,
+.saveEditedContactButton-div button {
   margin-right: 50px;
-}
+} */
 
 .file-input-label {
     cursor: pointer;
@@ -482,7 +471,6 @@ body {
 
 .link-inputs-div {
   display: block;
-  /* margin-right: 95.5px; */
   margin-right: 66.5px;
 }
 
@@ -511,10 +499,6 @@ body {
   margin: 0px;
   border: 1.5px solid #888888;
   border-radius: 4px;
-  /* border-top-right-radius: 4px 4px;
-  border-top-left-radius: 4px 4px;
-  border-bottom-right-radius: 4px 4px;
-  border-bottom-left-radius: 4px 4px; */
   padding: 0px 9px 0px 9px;
   padding-top: 8.4px;
   padding-bottom: 7px;
@@ -557,20 +541,18 @@ body {
   cursor: pointer;
 }
 
-.addContactButton-div {
+.addContactButton-div,
+.saveEditedContactButton-div {
   margin-top: 5px;
 }
 
-.addContactButton-div button {
+.addContactButton-div button,
+.saveEditedContactButton-div button {
   margin: 0px;
   width: 80px;
   height: 40px;
   border: 1px solid #4682A9;
   border-radius: 20px;
-  /* border-top-right-radius: 20px 20px;
-  border-top-left-radius: 20px 20px;
-  border-bottom-right-radius: 20px 20px;
-  border-bottom-left-radius: 20px 20px; */
   background-color: #4682A9;
   color: white;
   font-weight: 600;
@@ -578,18 +560,17 @@ body {
   transition: border-color 0.3s, background-color 0.3s;
 }
 
-.addContactButton-div button:hover {
+.addContactButton-div button:hover,
+.saveEditedContactButton-div button:hover {
   border: 1px solid #2f75d0;
   background-color: #2f75d0;
   cursor: pointer;
 }
 
-.addContactButton-div button:active {
+.addContactButton-div button:active,
+.saveEditedContactButton-div button:active {
   border: 1px solid #1e6ae1;
   background-color: #1e6ae1;
-  /* #4082bf */
-  /* #2f75d0 */
-  /* #1e6ae1 */
 }
 
 
@@ -614,7 +595,7 @@ body {
   align-items: center;
   justify-content: space-around;
   background-color: #fefefe;
-  height: 105px;
+  height: 103.5px;
   width: 100%;
   text-align: center;
   border: 1.5px solid #ced1dc;
@@ -624,8 +605,9 @@ body {
 .modal-content div {
   display: flex;
   align-items: left;
-  width: 80%;
+  width: 80.5%;
   padding: 5px 12px 5px 5px;
+  /* transition: all 0.2s ease; */
 }
 .modal-content div span {
   margin-right: 5px;
@@ -639,11 +621,63 @@ body {
   font-family: "Assistant", sans-serif;
   font-weight: normal;
   font-size: 13.5px;
-  color: #464646;
+  color: #4682A9;
   margin-top: 5px;
 }
-.modal-content div:hover {
+.shareContactButton-div,
+.editContactButton-div {
+  border-bottom: 0.7px solid #ced1dc;
+}
+.shareContactButton-div {
+  border-top-right-radius: 2px;
+  border-top-left-radius: 2px;
+}
+.shareContactButton-div:hover,
+.editContactButton-div:hover {
   cursor: pointer;
+  background-color: #f0f1f2;
+}
+.shareContactButton-div:hover li,
+.editContactButton-div:hover li {
+  color: #3a6c8d;
+}
+.shareContactButton-div:hover span,
+.editContactButton-div:hover span {
+  color: #3a6c8d;
+}
+.shareContactButton-div:active,
+.editContactButton-div:active {
+  cursor: pointer;
+  background-color: #f0f1f2;
+}
+.shareContactButton-div:active li,
+.shareContactButton-div:active span,
+.editContactButton-div:active li,
+.editContactButton-div:active span {
+  color: #315a76;
+}
+
+.deleteContactButton-div {
+  border-bottom-right-radius: 2px;
+  border-bottom-left-radius: 2px;
+}
+.deleteContactButton-div:hover {
+  cursor: pointer;
+  background-color: #fee7e5;
+}
+.deleteContactButton-div:hover li {
+  color: #e2061c;
+}
+.deleteContactButton-div:hover span {
+  color: #e2061c;
+}
+.deleteContactButton-div:active {
+  cursor: pointer;
+  background-color: #fcb2ac;
+}
+.deleteContactButton-div:active li,
+.deleteContactButton-div:active span {
+  color: #c20518;
 }
 
 .contact-detail-page-view {
@@ -685,4 +719,10 @@ body {
   justify-content: center;
   font-family: "Fira Sans Condensed";
   margin-top: 5px;
+}
+
+.contact-email-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

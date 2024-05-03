@@ -197,6 +197,58 @@ app.get('/contacts', async (req, res) => {
   }
 });
 
+// Route to fetch specific contact
+app.get('/contacts/:email', async (req, res) => {
+  const { email } = req.params;
+  try {
+    const currentUser = req.session.user;
+    if (!currentUser) {
+        return res.status(401).json({ success: false, error: 'User not signed in' });
+    }
+    const user = await User.findOne({ email: currentUser.email });
+    const contact = await Contact.findOne({ email, user: user._id });
+    if (!contact) {
+        return res.status(404).json({ success: false, foundContact: contact, contactEmail: email, user: user, error: 'Contact not found' });
+    }
+
+    res.status(200).json({ success: true, contact: contact });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, error: 'Failed to fetch contact' });
+  }
+});
+
+// Route to edit specific contact
+app.put('/edit-contact/:id', async (req, res) => {
+    const { id } = req.params;
+    const { firstName, lastName, position, company, email, image } = req.body;
+    try {
+        const currentUser = req.session.user;
+        if (!currentUser) {
+            return res.status(401).json({ success: false, error: 'User not signed in' });
+        }
+        const user = await User.findOne({ email: currentUser.email });
+        const contact = await Contact.findOne({ _id: id, user: user._id });
+        if (!contact) {
+            return res.status(404).json({ success: false, foundContact: contact, contactEmail: email, user: user, error: 'Contact not found' });
+        }
+        // Update the contact fields
+        contact.firstName = firstName;
+        contact.lastName = lastName;
+        contact.position = position;
+        contact.company = company;
+        contact.email = email;
+        contact.image = image;
+        // Save the updated contact
+        await contact.save();
+        res.status(200).json({ success: true, message: 'Contact updated successfully', contact });
+    } catch (error) {
+        console.error('Error updating contact:', error);
+        res.status(500).json({ success: false, error: 'Failed to update contact' });
+    }
+});
+
+
 // Route to delete all contacts
 app.delete('/contacts/delete-all', async (req, res) => {
     try {
@@ -232,30 +284,19 @@ app.delete('/contacts/delete-all', async (req, res) => {
 app.delete('/delete-contact/:email', async (req, res) => {
     const { email } = req.params;
     try {
-        // Check if user is signed in
         const currentUser = req.session.user;
         if (!currentUser) {
             return res.status(401).json({ success: false, error: 'User not signed in' });
         }
         const user = await User.findOne({ email: currentUser.email });
-        // Find the contact by email
-        // const email = req.params.email;
         const contact = await Contact.findOne({ email, user: user._id });
         const contacts = await Contact.find({ user: user._id });
-        // If contact does not exist, return error
         if (!contact) {
             return res.status(404).json({ success: false, foundContact: contact, contactEmail: email, contacts: contacts, user: user, error: 'Contact not found' });
         }
-        // else if (contact) {
-        //     return res.status(200).json({ success: false, foundContact: contact, contactEmail: email, contacts: contacts, user: user, error: 'Contact found!' });
-        // }
-        // Delete the contact
-        // await contact.remove();
         await Contact.findOneAndDelete({ email, user: user._id });
-        // Send success response
         res.status(200).json({ success: true, message: 'Contact deleted successfully' });
     } catch (error) {
-        // Handle errors
         res.status(500).json({ success: false, error: 'Failed to delete contact' });
     }
 });
