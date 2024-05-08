@@ -1,30 +1,30 @@
 // scripts/signUpP2.js
 
 // Function to update the extension code based on the selected country
-function updateExtensionCode() {
-  const countryDropdown = document.getElementById('country');
-  const extensionInput = document.getElementById('extension');
-  const selectedCountry = countryDropdown.value;
-  let extensionCode = '';
-
-  // Set extension code based on the selected country
-  switch (selectedCountry) {
-    case 'CAN':
-    case 'USA':
-      extensionCode = '+1';
-      break;
-    case 'GBR':
-      extensionCode = '+44';
-      break;
-    // Add more cases for other countries if needed
-    default:
-      extensionCode = '';
-      break;
-  }
-
-  // Update the extension input with the extension code
-  extensionInput.value = extensionCode;
-}
+// function updateExtensionCode() {
+//   const countryDropdown = document.getElementById('country');
+//   const extensionInput = document.getElementById('extension');
+//   const selectedCountry = countryDropdown.value;
+//   let extensionCode = '';
+//
+//   // Set extension code based on the selected country
+//   switch (selectedCountry) {
+//     case 'CAN':
+//     case 'USA':
+//       extensionCode = '+1';
+//       break;
+//     case 'GBR':
+//       extensionCode = '+44';
+//       break;
+//     // Add more cases for other countries if needed
+//     default:
+//       extensionCode = '';
+//       break;
+//   }
+//
+//   // Update the extension input with the extension code
+//   extensionInput.value = extensionCode;
+// }
 
 document.getElementById('signup-form').addEventListener('submit', function(event) {
     event.preventDefault();
@@ -42,12 +42,12 @@ document.getElementById('signup-form').addEventListener('submit', function(event
         firstName: formData.get('firstName'),
         lastName: formData.get('lastName'),
         dateOfBirth: formData.get('dateOfBirth'),
-        phoneNumber: `${formData.get('country')} ${formData.get('extension')} ${formData.get('phoneNumber')}`,
+        // phoneNumber: `${formData.get('country')} ${formData.get('extension')} ${formData.get('phoneNumber')}`,
         email: sessionStorage.getItem('email'), // Retrieve email from session storage
         password: sessionStorage.getItem('password'), // Retrieve password from session storage
     };
 
-    fetch('/signup/complete', {
+    fetch('/signup/checkPhoneNumber', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -58,15 +58,16 @@ document.getElementById('signup-form').addEventListener('submit', function(event
     .then(data => {
       if (data.success) { // Credentials are correct
         alert(data.message);
-        window.location.href = '/signIn.html';
-        // window.location.href = '/signUpP2.html';
-        // window.location.href = '/users.html';
+        sessionStorage.setItem('firstName', userData.firstName); // Save email in session storage
+        sessionStorage.setItem('lastName', userData.lastName);
+        sessionStorage.setItem('dateOfBirth', userData.dateOfBirth);
+        window.location.href = '/signUpP3.html';
       } else { // Credentials are incorrect
         alert(data.error);
-        window.location.href = '/users.html';
+        // window.location.href = '/users.html';
       }
     })
     .catch(error => console.error('Error signing up:', error));
 });
 
-window.onload = updateExtensionCode;
+// window.onload = updateExtensionCode;

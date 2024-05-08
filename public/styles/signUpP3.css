@@ -1,0 +1,213 @@
+/* signUpP3.css */
+
+body {
+  background-color: white;
+  list-style-type: none;
+  margin: 0px;
+  font-family: "Assistant", sans-serif;
+}
+
+.material-symbols-outlined {
+  color: #4682A9;
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 100,
+  'opsz' 24
+}
+.material-symbols-outlined:hover {
+  color: #3a6c8d;
+}
+.material-symbols-outlined:active {
+  color: #315a76;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  color: white;
+  margin: 0px;
+  padding: 0px 20px;
+  list-style-type: none;
+  text-decoration: none;
+}
+
+/* Left Side Nav ------------------------------------------------------------ */
+.navbar .appLogo,
+.navbar .appName {
+  color: #4682A9;
+  font-family: "Fira Sans Condensed";
+  font-weight: bold;
+}
+
+.left_side_nav {
+  display: flex;
+  align-items: center;
+  padding-top: 8.5px;
+  padding-bottom: 8.5px;
+}
+
+.left_side_nav li {
+  margin-right: 20px;
+}
+
+.left_side_nav .appName {
+  font-size: 24px;
+  text-decoration: none;
+  color: #5030e5;
+}
+
+.left_side_nav .appLogo {
+  font-size: 35px;
+  text-decoration: none;
+  color: #5030e5;
+  margin-left: 3px;
+}
+
+
+
+.wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signUp-centre-view {
+  width: 27%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #e8e8e8;
+  border-radius: 5px;
+  box-shadow: -1px 0 15px rgba(0, 0, 0, 0.05), 1px 0 15px rgba(0, 0, 0, 0.05), 0 2px 15px rgba(0, 0, 0, 0.05);
+}
+
+.signUp-banner-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 87%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.signUp-banner-div h3 {
+  font-family: "Assistant", sans-serif;
+  font-weight: normal;
+  font-size: 17px;
+  color: #464646;
+  margin: 0px;
+}
+
+.signUp-centre-view form {
+  width: 87%;
+}
+
+.signUp-centre-view input {
+  margin: 0px;
+  margin-bottom: 15px;
+  border: 1px solid #444746;
+  height: 25px;
+  width: 96%;
+  border-radius: 4px;
+  padding: 7px 0px 7px 10px;
+  font-family: "Assistant", sans-serif;
+  font-size: 18px;
+  font-weight: thin;
+  transition: all 0.1s ease;
+}
+.signUp-centre-view input:focus {
+  border: 1px solid white;
+  outline-color: #5030e5;
+}
+.signUp-centre-view label {
+  font-size: 15px;
+  padding-left: 3px;
+}
+.signUp-country-extension {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+.signUp-country-input-div,
+.signUp-extension-input-div {
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+}
+.select-country {
+  height: 25.7px;
+  font-family: "Assistant", sans-serif;
+  font-size: 16px;
+  font-weight: thin;
+  border: 1px solid #444746;
+  border-radius: 4px;
+}
+.signUp-extension-input-div input {
+  width: 91%;
+  height: 10px;
+  margin: 0px;
+}
+.phoneNumber-verification-code-div input {
+  width: 11.25%;
+  margin-top: 2px;
+  margin-left: 1px;
+  margin-right: 1px;
+}
+
+.no-code-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.no-code-div h4 {
+  font-family: "Assistant", sans-serif;
+  font-weight: normal;
+  font-size: 16px;
+  color: #464646;
+  margin: 0px;
+}
+.no-code-div li {
+  text-decoration: none;
+  padding: 1px 7px 2px 7px;
+  border: 2px solid transparent;
+  border-radius: 20px;
+  font-family: "Assistant", sans-serif;
+  font-weight: 650;
+  color: #5030e5;
+  transition: all 0.2s ease;
+}
+.no-code-div li:hover {
+  cursor: pointer;
+  text-decoration: underline;
+  background: #9885f0;
+  color: white;
+}
+
+.signUp-button-div {
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 25px;
+}
+.signUp-button-div button {
+  width: 100%;
+  background: #5030e5;
+  padding: 15px 10px 15px 10px;
+  border: 2px solid transparent;
+  border-radius: 40px;
+  font-family: "Assistant", sans-serif;
+  font-size: 17px;
+  font-weight: 650;
+  color: white;
+  transition: all 0.2s ease;
+}
+.signUp-button-div button:hover {
+  background: #3a1acf;
+  cursor: pointer;
+}

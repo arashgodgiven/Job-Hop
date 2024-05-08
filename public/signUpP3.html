@@ -1,4 +1,4 @@
-<!-- public/signUpP2.html -->
+<!-- public/signUpP3.html -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Manager</title>
-    <link rel="stylesheet" href="styles/signUpP2.css">
+    <link rel="stylesheet" href="styles/signUpP3.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,23 +33,11 @@
           <h3>Please provide some additional info</h3>
         </div>
         <form id="signup-form">
-          <div class="signUp-firstName-input-div">
-            <label for="firstName">First name</label>
-            <input type="text" id="firstName" name="firstName" autocomplete="given-name" required>
-          </div>
-          <div class="signUp-lastName-input-div">
-            <label for="lastName">Last name</label>
-            <input type="text" id="lastName" name="lastName" autocomplete="family-name" required>
-          </div>
-          <div class="signUp-dateOfBirth-input-div">
-            <label for="dateOfBirth">Date of Birth</label>
-            <input type="date" id="dateOfBirth" name="dateOfBirth" autocomplete="bday" required
-                   min="1900-01-01" max="2024-04-23">
-          </div>
-          <!-- <div class="signUp-country-extension">
+          <div class="signUp-country-extension">
             <div class="signUp-country-input-div">
               <label for="country">Country</label>
               <select class="select-country" id="country" name="country" required onchange="updateExtensionCode()">
+                <!-- Options for countries will be dynamically added here -->
                 <option value="CAN">Canada</option>
                 <option value="GBR">United Kingdom</option>
                 <option value="USA">United States</option>
@@ -63,15 +51,32 @@
           <div class="signUp-phoneNumber-input-div">
             <label for="phoneNumber">Phone Number</label>
             <input type="text" id="phoneNumber" name="phoneNumber" autocomplete="tel" required>
-          </div> -->
+          </div>
+
+          <div class="phoneNumber-verification-code-div" style="display:none;">
+            <label for="phoneNumber-verification-code-1">Enter your 6 digit code: </label><br>
+            <input type="text" id="phoneNumber-verification-code-1" name="verification-code-1" autocomplete="tel">
+            <input type="text" id="phoneNumber-verification-code-2" name="verification-code-2" autocomplete="tel">
+            <input type="text" id="phoneNumber-verification-code-3" name="verification-code-3" autocomplete="tel">
+            <input type="text" id="phoneNumber-verification-code-4" name="verification-code-4" autocomplete="tel">
+            <input type="text" id="phoneNumber-verification-code-5" name="verification-code-5" autocomplete="tel">
+            <input type="text" id="phoneNumber-verification-code-6" name="verification-code-6" autocomplete="tel">
+            <div class="no-code-div">
+              <h4>Didn't receive a code?</h4>
+              <h4>Check your phone number and try again.</h4>
+              <div class="resend-code-div">
+                <li class="resend-code">Resend code</li>
+              </div>
+            </div>
+          </div>
 
           <div class="signUp-button-div">
-            <button type="submit" id="signup-button">Continue</button>
+            <button type="submit" id="signup-button">Send code</button>
           </div>
         </form>
       </div>
     </div>
 
-    <script src="scripts/signUpP2.js"></script>
+    <script src="scripts/signUpP3.js"></script>
 </body>
 </html>

@@ -250,6 +250,7 @@ body {
   transition: all 0.2s ease;
 }
 .signIn-link:hover {
+  cursor: pointer;
   text-decoration: underline;
   background: #9885f0;
   color: white;

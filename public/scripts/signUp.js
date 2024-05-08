@@ -39,11 +39,9 @@ document.getElementById('signup-form').addEventListener('submit', function(event
     .then(data => {
       if (data.success) { // Credentials are correct
         alert(data.message);
-        // window.location.href = '/signIn.html';
         sessionStorage.setItem('email', userData.email); // Save email in session storage
         sessionStorage.setItem('password', userData.password); // Save password in session storage
         window.location.href = '/signUpP2.html';
-        // window.location.href = '/users.html';
       } else { // Credentials are incorrect
         alert(data.error);
         window.location.href = '/users.html';

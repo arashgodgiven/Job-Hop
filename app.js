@@ -49,6 +49,40 @@ app.post('/signup/check', async (req, res) => {
     res.status(500).json({  success: false, error: 'Internal server error, or something else must have went wrong!' });
   }
 });
+app.post('/signUp/checkPhoneNumber', async (req, res) => {
+  const { firstName, lastName, dateOfBirth, email, password } = req.body;
+  try {
+    res.status(200).json({ success: true, message: 'Process stand-by for phone number verification' });
+  } catch (error) {
+    res.status(500).json({  success: false, error: 'Internal server error, or something else must have went wrong!' });
+  }
+});
+app.post('/verify-code', async (req, res) => {
+    const { phoneNumber, verificationCode } = req.body;
+    try {
+        // Here you would implement the logic to verify the verification code sent to the phone number
+        // For simplicity, let's assume the verification code is stored in the database associated with the phone number
+        // Find the user with the provided phone number
+        const user = await User.findOne({ phoneNumber });
+        if (!user) {
+            return res.status(404).json({ success: false, error: 'User not found' });
+        }
+        // Check if the verification code matches
+        // This is where you would implement your verification code matching logic
+        const savedVerificationCode = user.verificationCode; // Assuming the verification code is stored in the user document
+        if (verificationCode === savedVerificationCode) {
+            // Verification successful
+            return res.status(200).json({ success: true, message: 'Verification successful' });
+        } else {
+            // Verification failed
+            return res.status(400).json({ success: false, error: 'Invalid verification code' });
+        }
+    } catch (error) {
+        console.error('Error verifying code:', error);
+        return res.status(500).json({ success: false, error: 'Internal server error' });
+    }
+});
+
 app.post('/signup/complete', async (req, res) => {
   const { phoneNumber, firstName, lastName, dateOfBirth, email, password } = req.body;
 
