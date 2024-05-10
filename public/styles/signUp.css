@@ -172,8 +172,25 @@ body {
   border: 2px solid #5030e5;
 }
 
+.password-match-message {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Assistant", sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  top: -10px;
+}
+/* .password-match-message textContent {
+  position: absolute;
+  top: 69%;
+  transform: translateY(-69%);
+} */
+
 .signUp-button-div {
   width: 100%;
+  margin-top: 0px;
 }
 .signUp-button-div button {
   width: 100%;

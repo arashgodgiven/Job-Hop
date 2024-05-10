@@ -35,7 +35,7 @@ app.use(session({
 
 // Sign-up route
 app.post('/signup/check', async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, confirmPassword } = req.body;
 
   try {
     // Check if user already exists with given email
@@ -43,7 +43,11 @@ app.post('/signup/check', async (req, res) => {
     if (existingUser) {
       return res.status(400).json({  success: false, error: 'User already exists' }); // Return to make sure execution of function stops here
     }
-    // User doesn't exist, go to next step
+    // Check if password and confirm password match
+    if (password !== confirmPassword) {
+      return res.status(400).json({ success: false, password: password, confirmPassword: confirmPassword, error: 'Passwords do not match' });
+    }
+    // User doesn't exist, password confirmed, go to next step
     res.status(200).json({ success: true, message: 'Email is available for sign-up' });
   } catch (error) {
     res.status(500).json({  success: false, error: 'Internal server error, or something else must have went wrong!' });
@@ -57,32 +61,6 @@ app.post('/signUp/checkPhoneNumber', async (req, res) => {
     res.status(500).json({  success: false, error: 'Internal server error, or something else must have went wrong!' });
   }
 });
-app.post('/verify-code', async (req, res) => {
-    const { phoneNumber, verificationCode } = req.body;
-    try {
-        // Here you would implement the logic to verify the verification code sent to the phone number
-        // For simplicity, let's assume the verification code is stored in the database associated with the phone number
-        // Find the user with the provided phone number
-        const user = await User.findOne({ phoneNumber });
-        if (!user) {
-            return res.status(404).json({ success: false, error: 'User not found' });
-        }
-        // Check if the verification code matches
-        // This is where you would implement your verification code matching logic
-        const savedVerificationCode = user.verificationCode; // Assuming the verification code is stored in the user document
-        if (verificationCode === savedVerificationCode) {
-            // Verification successful
-            return res.status(200).json({ success: true, message: 'Verification successful' });
-        } else {
-            // Verification failed
-            return res.status(400).json({ success: false, error: 'Invalid verification code' });
-        }
-    } catch (error) {
-        console.error('Error verifying code:', error);
-        return res.status(500).json({ success: false, error: 'Internal server error' });
-    }
-});
-
 app.post('/signup/complete', async (req, res) => {
   const { phoneNumber, firstName, lastName, dateOfBirth, email, password } = req.body;
 
@@ -99,6 +77,31 @@ app.post('/signup/complete', async (req, res) => {
     res.status(500).json({  success: false, error: 'Internal server error, or something else must have went wrong!' });
   }
 });
+// app.post('/verify-code', async (req, res) => {
+//     const { phoneNumber, verificationCode } = req.body;
+//     try {
+//         // Here you would implement the logic to verify the verification code sent to the phone number
+//         // For simplicity, let's assume the verification code is stored in the database associated with the phone number
+//         // Find the user with the provided phone number
+//         const user = await User.findOne({ phoneNumber });
+//         if (!user) {
+//             return res.status(404).json({ success: false, error: 'User not found' });
+//         }
+//         // Check if the verification code matches
+//         // This is where you would implement your verification code matching logic
+//         const savedVerificationCode = user.verificationCode; // Assuming the verification code is stored in the user document
+//         if (verificationCode === savedVerificationCode) {
+//             // Verification successful
+//             return res.status(200).json({ success: true, message: 'Verification successful' });
+//         } else {
+//             // Verification failed
+//             return res.status(400).json({ success: false, error: 'Invalid verification code' });
+//         }
+//     } catch (error) {
+//         console.error('Error verifying code:', error);
+//         return res.status(500).json({ success: false, error: 'Internal server error' });
+//     }
+// });
 
 // Sign-in route
 app.post('/signin', async (req, res) => {

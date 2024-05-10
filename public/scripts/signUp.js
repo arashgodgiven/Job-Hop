@@ -17,7 +17,20 @@ var confirmPasswordInput = document.getElementById('confirm-password');
 var passwordMatchMessage = document.getElementById('password-match-message');
 
 // Add event listener to confirmPasswordInput to check password match on input change
-// confirmPasswordInput.addEventListener('input', checkPasswordMatch);
+confirmPasswordInput.addEventListener('input', checkPasswordMatch);
+
+function checkPasswordMatch() {
+    var password = passwordInput.value;
+    var confirmPassword = confirmPasswordInput.value;
+
+    if (password === confirmPassword) {
+        passwordMatchMessage.textContent = "Passwords match";
+        passwordMatchMessage.style.color = "#258c3e";
+    } else {
+        passwordMatchMessage.textContent = "Passwords do not match";
+        passwordMatchMessage.style.color = "red";
+    }
+}
 
 document.getElementById('signup-form').addEventListener('submit', function(event) {
     event.preventDefault();
@@ -25,7 +38,8 @@ document.getElementById('signup-form').addEventListener('submit', function(event
     const formData = new FormData(this);
     const userData = {
         email: formData.get('email'),
-        password: formData.get('password')
+        password: formData.get('password'),
+        confirmPassword: formData.get('confirm-password')
     };
 
     fetch('/signup/check', {
@@ -38,13 +52,15 @@ document.getElementById('signup-form').addEventListener('submit', function(event
     .then(response => response.json())
     .then(data => {
       if (data.success) { // Credentials are correct
-        alert(data.message);
+        console.log(data.message);
         sessionStorage.setItem('email', userData.email); // Save email in session storage
         sessionStorage.setItem('password', userData.password); // Save password in session storage
         window.location.href = '/signUpP2.html';
       } else { // Credentials are incorrect
         alert(data.error);
-        window.location.href = '/users.html';
+        console.log("password: ", data.password);
+        console.log("confirm password: ", data.confirmPassword);
+        // window.location.href = '/users.html';
       }
     })
     .catch(error => console.error('Error signing up:', error));

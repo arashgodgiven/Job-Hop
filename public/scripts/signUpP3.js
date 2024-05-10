@@ -7,7 +7,6 @@ function updateExtensionCode() {
   const selectedCountry = countryDropdown.value;
   let extensionCode = '';
 
-  // Set extension code based on the selected country
   switch (selectedCountry) {
     case 'CAN':
     case 'USA':
@@ -16,19 +15,22 @@ function updateExtensionCode() {
     case 'GBR':
       extensionCode = '+44';
       break;
-    // Add more cases for other countries if needed
     default:
       extensionCode = '';
       break;
   }
 
-  // Update the extension input with the extension code
   extensionInput.value = extensionCode;
 }
 
+// Function to allow only numbers in the phone number input
+document.getElementById('phoneNumber').addEventListener('input', function(event) {
+    let inputValue = event.target.value;
+    inputValue = inputValue.replace(/\D/g, '');
+    event.target.value = inputValue;
+});
 
-let buttonClicked = false; // Flag to track button click
-
+let buttonClicked = false;
 document.getElementById('signup-form').addEventListener('submit', function(event) {
     event.preventDefault();
 
@@ -67,11 +69,13 @@ document.getElementById('signup-form').addEventListener('submit', function(event
         // })
         // .catch(error => console.error('Error verifying code:', error));
 
+        const firstVerificationCodeInput = document.getElementById('phoneNumber-verification-code-1');
+        firstVerificationCodeInput.focus();
+
         signUpButton.textContent = 'Sign Up'
         buttonClicked = true;
 
     } else {
-
         const formData = new FormData(document.getElementById('signup-form'));
 
         console.log(sessionStorage.getItem('firstName'));
@@ -86,8 +90,8 @@ document.getElementById('signup-form').addEventListener('submit', function(event
             lastName: sessionStorage.getItem('lastName'),
             dateOfBirth: sessionStorage.getItem('dateOfBirth'),
             phoneNumber: `${formData.get('country')} ${formData.get('extension')} ${formData.get('phoneNumber')}`,
-            email: sessionStorage.getItem('email'), // Retrieve email from session storage
-            password: sessionStorage.getItem('password'), // Retrieve password from session storage
+            email: sessionStorage.getItem('email'),
+            password: sessionStorage.getItem('password'),
         };
 
         fetch('/signup/complete', {
@@ -99,10 +103,10 @@ document.getElementById('signup-form').addEventListener('submit', function(event
         })
         .then(response => response.json())
         .then(data => {
-          if (data.success) { // Credentials are correct
+          if (data.success) {
             alert(data.message);
             window.location.href = '/signIn.html';
-          } else { // Credentials are incorrect
+          } else {
             alert(data.error);
             window.location.href = '/users.html';
           }
@@ -112,44 +116,73 @@ document.getElementById('signup-form').addEventListener('submit', function(event
 });
 
 
-// Countdown function
+// Function to set a countdown for resending the verification code
 function startCountdown() {
-    let countdown = 30; // Countdown time in seconds
+    let countdown = 30;
 
     const countdownInterval = setInterval(() => {
-        // Display the countdown in an h4 element
         const countdownElement = document.createElement('h4');
         countdownElement.textContent = `Resend code in ${countdown}s`;
 
         const resendCodeDiv = document.querySelector('.resend-code-div');
-        resendCodeDiv.innerHTML = ''; // Clear any existing content
+        resendCodeDiv.innerHTML = '';
         resendCodeDiv.appendChild(countdownElement);
 
         if (countdown === 0) {
-            // When countdown reaches 0, display the resend code button again
             clearInterval(countdownInterval);
             resendCodeDiv.innerHTML = '<li class="resend-code">Resend code</li>';
 
-            // Attach event listener to the resend code button
             const resendCodeButton = document.querySelector('.resend-code');
             resendCodeButton.addEventListener('click', handleResendCode);
         }
 
         countdown--;
-    }, 1000); // Update countdown every second
+    }, 1000);
 }
-
-// Function to handle resend code action
+// Function to resend the verification code
 function handleResendCode() {
-    // Hide the resend code button and start the countdown
     const resendCodeButton = document.querySelector('.resend-code');
     resendCodeButton.style.display = 'none';
     startCountdown();
 }
-
 // Attach event listener to the resend code button
 const resendCodeButton = document.querySelector('.resend-code');
 resendCodeButton.addEventListener('click', handleResendCode);
 
+// Add event listeners to all verification code inputs
+const verificationCodeInputs = document.querySelectorAll('.phoneNumber-verification-code-div input');
+verificationCodeInputs.forEach(input => {
+    input.addEventListener('input', handleVerificationCodeInput);
+    input.addEventListener('keydown', handleVerificationCodeNavigation);
+});
+
+// Function to handle input validation
+function handleVerificationCodeInput(event) {
+    const input = event.target;
+    const inputValue = input.value;
+    // Allow only digits (0-9)
+    if (!/^\d$/.test(inputValue)) {
+        input.value = '';
+    }
+}
+
+// Function to handle navigation between verification code inputs
+function handleVerificationCodeNavigation(event) {
+    const input = event.target;
+    const maxLength = parseInt(input.getAttribute('maxlength'), 10);
+    const currentLength = input.value.length;
+    if (event.key >= '0' && event.key <= '9' && currentLength === maxLength) {
+        const nextInputIndex = Array.from(verificationCodeInputs).indexOf(input) + 1;
+        if (nextInputIndex < verificationCodeInputs.length) {
+            verificationCodeInputs[nextInputIndex].focus();
+        }
+    }
+    if (event.key === 'Backspace' && currentLength === 0) {
+        const prevInputIndex = Array.from(verificationCodeInputs).indexOf(input) - 1;
+        if (prevInputIndex >= 0) {
+            verificationCodeInputs[prevInputIndex].focus();
+        }
+    }
+}
 
 window.onload = updateExtensionCode;
